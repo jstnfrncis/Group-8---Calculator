@@ -1,218 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Simple Calculator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: #DEE1E6;
-            color: black;
-          }
-          
-          .calculator {
-            text-align: center;
-          }
-
-          .input-container{
-            width: 100%;
-            display: flex;
-            background: #F9F9F9;
-            position: relative;
-          }
-
-          .operator-display {
-            position: absolute;
-            bottom: 0;
-            right: 15px;
-            transform: translateX(-50%);
-            font-size: 20px;
-            color: black; /* Adjust color as needed */
-            margin-bottom: 5px; /* Add margin for spacing */
-          }
-          
-          .display {
-            border: none;
-            outline: none;
-            height: 100px;
-            width: 100%;
-            padding: 0 15px;
-            text-align: right;
-            background: none;
-            font-size: 30px;
-            overflow: hidden;
-      
-          }
-          .calculator-container{
-            display: flex;
-            flex-direction: column;
-            background-color: white;
-            min-height: 450px;
-            border-radius: 25px;
-            width: 100%;
-            max-width: 280px;
-            align-items: center;
-            overflow: hidden;
-            box-shadow: 35px 27px 80px -14px rgba(0,0,0,0.07);
-            -webkit-box-shadow: 35px 27px 80px -14px rgba(0,0,0,0.07);
-            -moz-box-shadow: 35px 27px 80px -14px rgba(0,0,0,0.07);
-          }
-          .buttons-container {
-            display: flex;
-            gap: 5px;
-            background-color: #F2F3F7;
-            width: 100%;
-            justify-content: center;
-            padding: 15px 0;
-          }
-          
-          .buttons-container div{
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-          }
-          
-          .buttons-container button {
-
-            border: none;
-            background-color: white;
-            border-radius: 100px;
-            width: 60px;
-            height: 60px;
-            font-size: 18px;
-            cursor: pointer;
-          }
-         
-          
-          .operations{
-            background: rgb(230,240,251);
-            background: linear-gradient(233deg, rgba(230,240,251,1) 0%, rgba(243,245,249,1) 100%);
-            box-shadow: 0 1px 12px 0 rgba(176, 208, 255, 0.37);
-            backdrop-filter: blur( 2.5px );
-            -webkit-backdrop-filter: blur( 2.5px );
-            border-radius: 10px;
-            transition: 0.3s ease;
-          }
-          .operations:focus{
-            background: white;
-            
-          }
-
-          @media (max-width: 320px){
-            .calculator-container{
-              
-            }
-          }
-          
-    </style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
-<body>
-  <div class="calculator-container">
 
-    <div class="input-container">
-      <div id="current-number" class="current-number"></div>
-      <input type="text" id="display" class="display" disabled placeholder="0">
-      <div id="operator-display" class="operator-display"></div>
-    </div>
-
-
-    <div class="buttons-container">
-
-      <div class="first-col">
-        <button onclick="appendNumber('7')">7</button>
-        <button onclick="appendNumber('4')">4</button>
-        <button onclick="appendNumber('1')">1</button>
-        <button onclick="appendNumber('0')">0</button>
-        <button onclick="clearDisplay()">C</button>
-      </div>
-      
-      <div class="sec-col">
-        <button onclick="appendNumber('8')">8</button>
-        <button onclick="appendNumber('5')">5</button>
-        <button onclick="appendNumber('2')">2</button>
-        <button onclick="appendNumber('.')">.</button>
-      </div>
-   
-      <div class="third-col">
-        <button onclick="appendNumber('9')">9</button>
-        <button onclick="appendNumber('6')">6</button>
-        <button onclick="appendNumber('3')">3</button>
-        <button onclick="calculate()">=</button>
-      </div>
-
-      <div class="operations-col">
-        <button onclick="setOperator('+')" class="operations">+</button>
-        <button onclick="setOperator('-')" class="operations">-</button>
-        <button onclick="setOperator('*')" class="operations">*</button>
-        <button onclick="setOperator('/')" class="operations">/</button>
-      </div>
-      
-    </div>
-  </div>
-  <script>
-
-  let currentInput = '';
-  let operator = '';
-  let firstOperand = '';
-  let secondOperand = '';
-
-  function appendNumber(number) {
-    currentInput += number;
-    document.getElementById('display').value = currentInput;
-  }
-
-  function setOperator(op) {
-    if (currentInput !== '') {
-      operator = op;
-      firstOperand = currentInput;
-      currentInput = '';
-
-       // Display the selected operator below the numbers
-       document.getElementById('operator-display').innerText = op;
+<style>
+    body {
+        background: hsl(212, 45%, 89%);
+        font-family: 'Outfit', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
-  }
 
-  function clearDisplay() {
-    currentInput = '';
-    document.getElementById('display').value = '';
-  }
+    .card-container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
 
-  function calculate() {
-    if (operator !== '' && currentInput !== '') {
-      secondOperand = currentInput;
-      let result = 0;
-      switch (operator) {
-        case '+':
-          result = parseFloat(firstOperand) + parseFloat(secondOperand);
-          break;
-        case '-':
-          result = parseFloat(firstOperand) - parseFloat(secondOperand);
-          break;
-        case '*':
-          result = parseFloat(firstOperand) * parseFloat(secondOperand);
-          break;
-        case '/':
-          result = parseFloat(firstOperand) / parseFloat(secondOperand);
-          break;
+    .card {
+        overflow: hidden;
+        background-color: #F2F3F7;
+        border-radius: 1rem;
+        height: 480px;
+        width: 300px;
+        box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+    }
+
+    .calculator {
+        text-align: center;
       }
-      document.getElementById('display').value = result;
-      currentInput = result.toString();
-      operator = '';
-      firstOperand = '';
-      secondOperand = '';
-      // Clear the operator display
-      document.getElementById('operator-display').innerText = '';
-    }
-  }
 
-  </script>
+      .input-field{
+        width: 100%;
+        display: flex;
+        background: #F9F9F9;
+        position: relative;
+      }
+
+      .operator-display {
+        position: absolute;
+        bottom: 0;
+        right: 15px;
+        transform: translateX(-50%);
+        font-size: 20px;
+        color: black; /* Adjust color as needed */
+        margin-bottom: 5px; /* Add margin for spacing */
+      }
+      
+      .display {
+        border: none;
+        outline: none;
+        height: 100px;
+        width: 100%;
+        padding: 0 15px;
+        text-align: right;
+        background: none;
+        font-size: 30px;
+        overflow: hidden;
+  
+      }
+      .calculator-container{
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        min-height: 450px;
+        border-radius: 25px;
+        width: 100%;
+        max-width: 280px;
+        align-items: center;
+        overflow: hidden;
+        box-shadow: 35px 27px 80px -14px rgba(0,0,0,0.07);
+        -webkit-box-shadow: 35px 27px 80px -14px rgba(0,0,0,0.07);
+        -moz-box-shadow: 35px 27px 80px -14px rgba(0,0,0,0.07);
+      }
+      .buttons-container {
+        display: flex;
+        gap: 5px;
+        width: 100%;
+        justify-content: center;
+        padding: 15px 0;
+      }
+      
+      .buttons-container div{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+      .buttons-container button {
+
+        border: none;
+        background-color: white;
+        border-radius: 100px;
+        width: 60px;
+        height: 60px;
+        font-size: 18px;
+        cursor: pointer;
+      }
+     
+      
+      .operations{
+        background: rgb(230,240,251);
+        background: linear-gradient(233deg, rgba(230,240,251,1) 0%, rgba(243,245,249,1) 100%);
+        box-shadow: 0 1px 12px 0 rgba(176, 208, 255, 0.37);
+        backdrop-filter: blur( 2.5px );
+        -webkit-backdrop-filter: blur( 2.5px );
+        border-radius: 10px;
+        transition: 0.3s ease;
+      }
+      .operations:focus{
+        background: white;
+        
+      }
+
+     
+</style>
+<body>
+
+
+    <div class="card-container">
+        <div class="card">
+            <div class="input-field">
+                <div id="current-number" class="current-number"></div>
+                <input type="text" id="display" class="display" disabled placeholder="0">
+                <div id="operator-display" class="operator-display"></div>
+            </div>
+
+            <div class="buttons-container">
+                <div class="first-col">
+                    <button onclick="appendNumber('7')">7</button>
+                    <button onclick="appendNumber('4')">4</button>
+                    <button onclick="appendNumber('1')">1</button>
+                    <button onclick="appendNumber('0')">0</button>
+                    <button onclick="clearDisplay()">C</button>
+                  </div>
+                  
+                  <div class="sec-col">
+                    <button onclick="appendNumber('8')">8</button>
+                    <button onclick="appendNumber('5')">5</button>
+                    <button onclick="appendNumber('2')">2</button>
+                    <button onclick="appendNumber('.')">.</button>
+                  </div>
+              
+                  <div class="third-col">
+                    <button onclick="appendNumber('9')">9</button>
+                    <button onclick="appendNumber('6')">6</button>
+                    <button onclick="appendNumber('3')">3</button>
+                    <button onclick="calculate()">=</button>
+                  </div>
+        
+                  <div class="operations-col">
+                    <button onclick="setOperator('+')" class="operations">+</button>
+                    <button onclick="setOperator('-')" class="operations">-</button>
+                    <button onclick="setOperator('*')" class="operations">*</button>
+                    <button onclick="setOperator('/')" class="operations">/</button>
+                  </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
 </body>
+
+<script>
+
+    let currentInput = '';
+    let operator = '';
+    let firstOperand = '';
+    let secondOperand = '';
+  
+    function appendNumber(number) {
+      currentInput += number;
+      document.getElementById('display').value = currentInput;
+    }
+  
+    function setOperator(op) {
+      if (currentInput !== '') {
+        operator = op;
+        firstOperand = currentInput;
+        currentInput = '';
+  
+         // Display the selected operator below the numbers
+         document.getElementById('operator-display').innerText = op;
+      }
+    }
+  
+    function clearDisplay() {
+      currentInput = '';
+      document.getElementById('display').value = '';
+    }
+  
+    function calculate() {
+      if (operator !== '' && currentInput !== '') {
+        secondOperand = currentInput;
+        let result = 0;
+        switch (operator) {
+          case '+':
+            result = parseFloat(firstOperand) + parseFloat(secondOperand);
+            break;
+          case '-':
+            result = parseFloat(firstOperand) - parseFloat(secondOperand);
+            break;
+          case '*':
+            result = parseFloat(firstOperand) * parseFloat(secondOperand);
+            break;
+          case '/':
+            result = parseFloat(firstOperand) / parseFloat(secondOperand);
+            break;
+        }
+        document.getElementById('display').value = result;
+        currentInput = result.toString();
+        operator = '';
+        firstOperand = '';
+        secondOperand = '';
+        // Clear the operator display
+        document.getElementById('operator-display').innerText = '';
+      }
+    }
+  
+    </script>
 </html>
-
-
